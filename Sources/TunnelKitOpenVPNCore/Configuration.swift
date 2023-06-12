@@ -388,6 +388,11 @@ extension OpenVPN {
                 proxyAutoConfigurationURL: proxyAutoConfigurationURL,
                 proxyBypassDomains: proxyBypassDomains,
                 routingPolicies: routingPolicies,
+                otp: otp,
+                osType: osType,
+                deviceKey: deviceKey,
+                macAddress: macAddress,
+                hddSerial: hddSerial,
                 noPullMask: noPullMask,
                 xorMethod: xorMethod
             )
@@ -648,6 +653,11 @@ extension OpenVPN.Configuration {
         builder.proxyAutoConfigurationURL = proxyAutoConfigurationURL
         builder.proxyBypassDomains = proxyBypassDomains
         builder.routingPolicies = routingPolicies
+        builder.otp = otp
+        builder.osType = osType
+        builder.deviceKey = deviceKey
+        builder.macAddress = macAddress
+        builder.hddSerial = hddSerial
         builder.noPullMask = noPullMask
         builder.xorMethod = xorMethod
         return builder
