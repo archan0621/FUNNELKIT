@@ -909,14 +909,34 @@ public class OpenVPNSession: Session {
         guard !message.hasPrefix("AUTH_FAILED") else {
 
             // XXX: retry without client options
-            if authenticator?.withLocalOptions ?? false {
-                log.warning("Authentication failure, retrying without local options")
-                withLocalOptions = false
-                deferStop(.reconnect, OpenVPNError.badCredentials)
-                return
-            }
+//            if authenticator?.withLocalOptions ?? false {
+//                log.warning("Authentication failure, retrying without local options")
+//                withLocalOptions = false
+//                deferStop(.reconnect, OpenVPNError.badCredentials)
+//                return
+//            }
 
-            deferStop(.shutdown, OpenVPNError.badCredentials)
+            // jhpark@20230612
+            if let _code = Int(message.split(separator: ",")[1]) {
+//                let code = _code & 0x1f
+////                let code = _code
+                var failCount = 0
+//
+//                log.debug("############received Code: \"\(_code)\"")
+//
+//                if (code == 2 || code == 25) {
+//                    failCount = (_code >> 12) & 0x7
+//                }
+                let code = _code & 0xFFF
+                failCount = (_code & 0xF000) >> 12
+                
+                log.debug("############received Code: \"\(_code)\"")
+                
+                deferStop(.shutdown, SSLplusError.authCode(code, failCount))
+            } else {
+                deferStop(.shutdown, OpenVPNError.badCredentials)
+            }
+            
             return
         }
 

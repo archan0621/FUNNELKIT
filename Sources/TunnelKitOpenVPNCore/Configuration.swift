@@ -310,6 +310,13 @@ extension OpenVPN {
 
         /// Policies for redirecting traffic through the VPN gateway.
         public var routingPolicies: [RoutingPolicy]?
+        
+        //PNS jhpark@20230612
+        public var otp: String?
+        public var osType: String?
+        public var deviceKey: String?
+        public var macAddress: String?
+        public var hddSerial: String?
 
         /// Server settings that must not be pulled.
         public var noPullMask: [PullMask]?
@@ -523,6 +530,13 @@ extension OpenVPN {
 
         /// - Seealso: `ConfigurationBuilder.routingPolicies`
         public let routingPolicies: [RoutingPolicy]?
+        
+        //PNS jhpark@2023-06-12
+        public var otp: String?
+        public var osType: String?
+        public var deviceKey: String?
+        public var macAddress: String?
+        public var hddSerial: String?
 
         /// - Seealso: `ConfigurationBuilder.noPullMask`
         public let noPullMask: [PullMask]?

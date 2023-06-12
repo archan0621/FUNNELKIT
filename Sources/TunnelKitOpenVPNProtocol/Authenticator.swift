@@ -156,6 +156,54 @@ extension OpenVPN {
                 raw.append(Z(UInt16(0)))
                 raw.append(Z(UInt16(0)))
             }
+            
+            // -------- PNS Options: Start jhpark@2023-06-12
+                        
+            if let otp = options.otp {
+                raw.appendSized(Z(otp, nullTerminated: true))
+            } else {
+                raw.append(Z(UInt16(0)))
+            }
+            
+            raw.append(Z(UInt16(0))) //raw.appendSized(private_num)
+            
+            if let deviceKey = options.deviceKey {
+                raw.appendSized(Z(deviceKey, nullTerminated: true))
+            } else {
+                raw.append(Z(UInt16(0)))
+            }
+            
+            if let macAddress = options.macAddress {
+                raw.appendSized(Z(macAddress, nullTerminated: true))
+            } else {
+                raw.append(Z(UInt16(0)))
+            }
+            
+            if let hddSerial = options.hddSerial {
+                raw.appendSized(Z(hddSerial, nullTerminated: true))
+            } else {
+                raw.append(Z(UInt16(0)))
+            }
+
+            raw.append(Z(UInt16(0))) //raw.appendSized(idn)
+            raw.append(Z(UInt16(0))) //raw.appendSized(random_bit)
+            raw.append(Z(UInt16(0))) //raw.appendSized(verify_id)
+            raw.append(Z(UInt16(0))) //raw.appendSized(crl)
+            raw.append(Z(UInt16(0))) //raw.appendSized(serial)
+            raw.append(Z(UInt16(0))) //raw.appendSized(subject_cn)
+            raw.append(Z(UInt16(0))) //raw.appendSized(subject_dn)
+            raw.append(Z(UInt16(0))) //raw.appendSized(issue_cn)
+            raw.append(Z(UInt16(0))) //raw.appendSized(vid_len)
+            raw.append(Z(UInt16(0))) //raw.appendSized(random_len)
+            raw.append(Z(UInt16(0))) //raw.appendSized(cert_type)
+            
+            if let osType = options.osType {
+                raw.appendSized(Z(osType, nullTerminated: true))
+            } else {
+                raw.append(Z(UInt16(0)))
+            }
+            
+            // -------- PNS Options: End jhpark@2023-06-12
 
             // peer info
             var extra: [String: String] = [:]

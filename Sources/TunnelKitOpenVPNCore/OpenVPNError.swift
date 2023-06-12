@@ -80,4 +80,11 @@ public enum OpenVPNError: String, Error {
 
     /// Remote server shut down (--explicit-exit-notify).
     case serverShutdown
+    
+    //jhpark@2023-0612
+    case authDeviceFail // 20
+}
+//jhpark@2023-0612
+public enum SSLplusError: Error {
+    case authCode(Int,Int)
 }
