@@ -904,10 +904,12 @@ public class OpenVPNSession: Session {
         if CoreConfiguration.logsSensitiveData {
             log.debug("Received control message: \"\(message)\"")
         }
+        
+        print("FunnelKit: handleControlMessage: \(message)")
 
         // disconnect on authentication failure
         guard !message.hasPrefix("AUTH_FAILED") else {
-
+            print("FunnelKit: AUTH_FAILED")
             // XXX: retry without client options
 //            if authenticator?.withLocalOptions ?? false {
 //                log.warning("Authentication failure, retrying without local options")
