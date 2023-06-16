@@ -706,6 +706,17 @@ extension OpenVPNTunnelProvider {
             default:
                 return .unexpectedReply
             }
+        } else if let pe = error as? SSLplusError { //xenics에서 주는 에러 파싱하는곳 jhpark
+            switch pe {
+            case .authCode(25, _): //OTP Failed
+                return .otpFail
+            case .authCode(41, _): //Fido Failed
+                return .fidoFail
+            case .authCode(44, _): //Aerox Failed
+                return .aeroxFail
+            case .authCode(_, _): //예상되지 않은 에러 !! 항상 switch문 최하단에 위치해야함
+                return .unExpected
+            }
         }
         return error as? OpenVPNProviderError ?? .linkError
     }

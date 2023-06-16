@@ -108,4 +108,17 @@ public enum OpenVPNProviderError: String, Error {
 
     /// The server replied in an unexpected way.
     case unexpectedReply
+    
+    //MARK: JHPark added PNS Tunnel Error Type
+    /// PNS Error OTP AuthCode 25
+    case otpFail
+    
+    /// PNS Error FIDO Failed AuthCode 41
+    case fidoFail
+    
+    /// PNS Error Aerox Failed AuthCode 44
+    case aeroxFail
+    
+    /// PNS UnExcpeted Error AuthCode Default
+    case unExpected
 }
