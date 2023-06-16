@@ -431,15 +431,19 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         let didTimeoutNegotiation: Bool
         var upgradedSocket: GenericSocket?
 
+        print("FunnelKit Socket 지나감") //jhpark debug
+        
         // look for error causing shutdown
         shutdownError = session.stopError
         if failure && (shutdownError == nil) {
+            print("FunnelKit Socket 조건문 1") //jhpark debug
             shutdownError = OpenVPNProviderError.linkError
         }
         didTimeoutNegotiation = (shutdownError as? OpenVPNError == .negotiationTimeout)
 
         // only try upgrade on network errors
         if shutdownError as? OpenVPNError == nil {
+            print("FunnelKit Socket 조건문 2") //jhpark debug
             upgradedSocket = socket.upgraded()
         }
 
@@ -651,6 +655,7 @@ extension OpenVPNTunnelProvider {
     // MARK: Errors
 
     private func setErrorStatus(with error: Error) {
+        print("FunnelKit_Error: \(error) ") //jhpark debug
         cfg._appexSetLastError(unifiedError(from: error))
     }
 
