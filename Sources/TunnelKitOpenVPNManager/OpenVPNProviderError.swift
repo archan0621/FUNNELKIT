@@ -121,4 +121,7 @@ public enum OpenVPNProviderError: String, Error {
     
     /// PNS UnExcpeted Error AuthCode Default
     case unExpected
+    
+    /// PNS 비인가 단말 오류
+    case deviceFail
 }

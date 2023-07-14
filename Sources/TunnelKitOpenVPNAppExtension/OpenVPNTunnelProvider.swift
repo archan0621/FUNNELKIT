@@ -708,6 +708,8 @@ extension OpenVPNTunnelProvider {
             }
         } else if let pe = error as? SSLplusError { //xenics에서 주는 에러 파싱하는곳 jhpark
             switch pe {
+            case .authCode(20, _):
+                return .deviceFail
             case .authCode(25, _): //OTP Failed
                 return .otpFail
             case .authCode(41, _): //Fido Failed
