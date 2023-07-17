@@ -708,10 +708,46 @@ extension OpenVPNTunnelProvider {
             }
         } else if let pe = error as? SSLplusError { //xenics에서 주는 에러 파싱하는곳 jhpark
             switch pe {
+            case .authCode(1, _):
+                return .noUserId
+            case .authCode(2, _):
+                return .failpassword
+            case .authCode(6, _):
+                return .accountLock
+            case .authCode(7, _):
+                return .accountExpire
+            case .authCode(8, _):
+                return .ipFail
+            case .authCode(9, _):
+                return .timeFail
+            case .authCode(10, _):
+                return .radiusFail
+            case .authCode(11, _):
+                return .radiusNoResp
+            case .authCode(12, _):
+                return .ldapFail
+            case .authCode(13, _):
+                return .ldapAuthFail
+            case .authCode(15, _):
+                return .noMoreIp
+            case .authCode(18, _):
+                return .invalidPolicy
+            case .authCode(19, _):
+                return .userLimit
             case .authCode(20, _):
                 return .deviceFail
+            case .authCode(21, _):
+                return .certExpire
+            case .authCode(22, _):
+                return .invalidCert
+            case .authCode(23, _):
+                return .noProfile
+            case .authCode(24, _):
+                return .expirePassword
             case .authCode(25, _): //OTP Failed
                 return .otpFail
+            case .authCode(28, _):
+                return .deviceBanned
             case .authCode(41, _): //Fido Failed
                 return .fidoFail
             case .authCode(44, _): //Aerox Failed

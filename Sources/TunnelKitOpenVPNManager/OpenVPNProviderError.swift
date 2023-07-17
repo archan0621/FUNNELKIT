@@ -122,6 +122,64 @@ public enum OpenVPNProviderError: String, Error {
     /// PNS UnExcpeted Error AuthCode Default
     case unExpected
     
-    /// PNS 비인가 단말 오류
+    /// PNS 인가된 단말이 아닙니다
     case deviceFail
+    
+    /// PNS 서버가 응답하지 않습니다
+    case noServerResponse
+    
+    /// PNS 없는 사용자 아이디입니다.
+    case noUserId
+    
+    /// PNS 비밀번호 인증에 실패하였습니다(%d회)
+    case failpassword
+    
+    /// PNS 사용자 계정이 잠겨있습니다
+    case accountLock
+    
+    /// PNS  계정 유효기간이 만료되었습니다
+    case accountExpire
+    
+    /// PNS 접속가능한 IP가 아닙니다
+    case ipFail
+    
+    /// PNS VPN 사용 가능 시간대가 아닙니다.
+    case timeFail
+    
+    /// PNS RADIUS 인증 실패
+    case radiusFail
+    
+    /// PNS RADIUS 서버가 응답하지 않습니다
+    case radiusNoResp
+    
+    /// PNS LDAP 서버 접속 실패
+    case ldapFail
+    
+    /// PNS LDAP 인증 실패
+    case ldapAuthFail
+    
+    /// PNS 서버가 더이상 IP를 할당할 수 없습니다.
+    case noMoreIp
+    
+    /// PNS 현재 정책과 일치하지 않는 로그인 시도입니다
+    case invalidPolicy
+    
+    ///  PNS 사용자가 너무 많아 접속할 수 없습니다
+    case userLimit
+    
+    /// PNS 인증서가 만료되었습니다
+    case certExpire
+    
+    /// PNS 신뢰할 수 없는 인증서입니다
+    case invalidCert
+    
+    /// PNS 프로파일이 없습니다
+    case noProfile
+    
+    /// PNS 암호가 만료되었습니다
+    case expirePassword
+    
+    /// PNS 사용 중지된 단말입니다
+    case deviceBanned
+    
 }
