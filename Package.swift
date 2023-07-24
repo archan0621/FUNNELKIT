@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "TunnelKit",
     platforms: [
-        .iOS(.v15), .macOS(.v12)
+//        .iOS(.v15), .macOS(.v12)
+        .iOS(.v14), .macOS(.v12)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -22,14 +23,14 @@ let package = Package(
             name: "TunnelKitOpenVPNAppExtension",
             targets: ["TunnelKitOpenVPNAppExtension"]
         ),
-        .library(
-            name: "TunnelKitWireGuard",
-            targets: ["TunnelKitWireGuard"]
-        ),
-        .library(
-            name: "TunnelKitWireGuardAppExtension",
-            targets: ["TunnelKitWireGuardAppExtension"]
-        ),
+//        .library(
+//            name: "TunnelKitWireGuard",
+//            targets: ["TunnelKitWireGuard"]
+//        ),
+//        .library(
+//            name: "TunnelKitWireGuardAppExtension",
+//            targets: ["TunnelKitWireGuardAppExtension"]
+//        ),
         .library(
             name: "TunnelKitLZO",
             targets: ["TunnelKitLZO"]
@@ -107,31 +108,31 @@ let package = Package(
                 "TunnelKitOpenVPNProtocol"
             ]),
         //
-        .target(
-            name: "TunnelKitWireGuard",
-            dependencies: [
-                "TunnelKitWireGuardCore",
-                "TunnelKitWireGuardManager"
-            ]),
-        .target(
-            name: "TunnelKitWireGuardCore",
-            dependencies: [
-                "__TunnelKitUtils",
-                "WireGuardKit",
-                "SwiftyBeaver"
-            ]),
-        .target(
-            name: "TunnelKitWireGuardManager",
-            dependencies: [
-                "TunnelKitManager",
-                "TunnelKitWireGuardCore"
-            ]),
-        .target(
-            name: "TunnelKitWireGuardAppExtension",
-            dependencies: [
-                "TunnelKitWireGuardCore",
-                "TunnelKitWireGuardManager"
-            ]),
+//        .target(
+//            name: "TunnelKitWireGuard",
+//            dependencies: [
+//                "TunnelKitWireGuardCore",
+//                "TunnelKitWireGuardManager"
+//            ]),
+//        .target(
+//            name: "TunnelKitWireGuardCore",
+//            dependencies: [
+//                "__TunnelKitUtils",
+//                "WireGuardKit",
+//                "SwiftyBeaver"
+//            ]),
+//        .target(
+//            name: "TunnelKitWireGuardManager",
+//            dependencies: [
+//                "TunnelKitManager",
+//                "TunnelKitWireGuardCore"
+//            ]),
+//        .target(
+//            name: "TunnelKitWireGuardAppExtension",
+//            dependencies: [
+//                "TunnelKitWireGuardCore",
+//                "TunnelKitWireGuardManager"
+//            ]),
         .target(
             name: "TunnelKitLZO",
             dependencies: [],
