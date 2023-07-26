@@ -707,7 +707,6 @@ extension OpenVPNTunnelProvider {
                 return .unexpectedReply
             }
         } else if let pe = error as? SSLplusError { //xenics에서 주는 에러 파싱하는곳 jhpark
-            print("SSLPlusError:\(pe)")
             switch pe {
             case .authCode(1, _):
                 return .noUserId

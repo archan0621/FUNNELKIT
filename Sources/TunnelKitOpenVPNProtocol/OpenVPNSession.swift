@@ -929,10 +929,8 @@ public class OpenVPNSession: Session {
 //                if (code == 2 || code == 25) {
 //                    failCount = (_code >> 12) & 0x7
 //                }
-                print("Original AuthCode: \(_code)")
                 let code = _code & 0xFFF
                 failCount = (_code & 0xF000) >> 12
-                print("Parsed AuthCode: \(code), failCount: \(failCount)")
                 log.debug("############received Code: \"\(_code)\"")
                 
                 deferStop(.shutdown, SSLplusError.authCode(code, failCount))
