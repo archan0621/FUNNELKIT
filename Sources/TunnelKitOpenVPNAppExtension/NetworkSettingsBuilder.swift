@@ -168,24 +168,11 @@ extension NetworkSettingsBuilder {
         var neRoutes: [NEIPv4Route] = []
 
         // route all traffic to VPN?
-//        if isIPv4Gateway {
-//            let defaultRoute = NEIPv4Route.default()
-//            defaultRoute.gatewayAddress = ipv4.defaultGateway
-//            neRoutes.append(defaultRoute)
-//            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
-//        }
-        
         if isIPv4Gateway {
-            let defaultRoute = ipv4.routes.count == 0 ? NEIPv4Route.default() : NEIPv4Route(destinationAddress: ipv4.address, subnetMask: ipv4.addressMask)
+            let defaultRoute = NEIPv4Route.default()
             defaultRoute.gatewayAddress = ipv4.defaultGateway
             neRoutes.append(defaultRoute)
-//                for network in ["0.0.0.0", "128.0.0.0"] {
-//                    let route = NEIPv4Route(destinationAddress: network, subnetMask: "128.0.0.0")
-//                    route.gatewayAddress = ipv4.defaultGateway
-//                    routes.append(route)
-//                }
-            log.info("1 Routing.IPv4: Adding route \(defaultRoute.destinationAddress)/\(defaultRoute.destinationSubnetMask) -> \(defaultRoute.gatewayAddress!)")
-            log.info("1 Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway.maskedDescription)")
+            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
         }
         
 
