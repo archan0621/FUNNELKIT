@@ -177,11 +177,14 @@ extension NetworkSettingsBuilder {
         
 
         for r in allRoutes4 {
+//            let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
+//            let gw = r.gateway ?? ipv4.defaultGateway
+//            ipv4Route.gatewayAddress = gw
+//            neRoutes.append(ipv4Route)
             let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
-            let gw = r.gateway ?? ipv4.defaultGateway
-            ipv4Route.gatewayAddress = gw
+            ipv4Route.gatewayAddress = r.gateway
             neRoutes.append(ipv4Route)
-            log.info("Routing.IPv4: Adding route \(r.destination)/\(r.mask) -> \(gw)")
+//            log.info("Routing.IPv4: Adding route \(r.destination)/\(r.mask) -> \(gw)")
         }
 
         ipv4Settings.includedRoutes = neRoutes
