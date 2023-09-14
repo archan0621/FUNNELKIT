@@ -194,19 +194,19 @@ extension NetworkSettingsBuilder {
             var routes: [NEIPv4Route] = []
             
             // route all traffic to VPN?
-            if isIPv4Gateway {
-                let defaultRoute = ipv4.routes.count == 0 ? NEIPv4Route.default() : NEIPv4Route(destinationAddress: ipv4.address, subnetMask: ipv4.addressMask)
-                defaultRoute.gatewayAddress = ipv4.defaultGateway
-                
-                routes.append(defaultRoute)
-                //                for network in ["0.0.0.0", "128.0.0.0"] {
-                //                    let route = NEIPv4Route(destinationAddress: network, subnetMask: "128.0.0.0")
-                //                    route.gatewayAddress = ipv4.defaultGateway
-                //                    routes.append(route)
-                //                }
-                log.info("1 Routing.IPv4: Adding route \(defaultRoute.destinationAddress)/\(defaultRoute.destinationSubnetMask) -> \(defaultRoute.gatewayAddress!)")
-                log.info("1 Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway.maskedDescription)")
-            }
+//            if isIPv4Gateway {
+//                let defaultRoute = ipv4.routes.count == 0 ? NEIPv4Route.default() : NEIPv4Route(destinationAddress: ipv4.address, subnetMask: ipv4.addressMask)
+//                defaultRoute.gatewayAddress = ipv4.defaultGateway
+//
+//                routes.append(defaultRoute)
+//                //                for network in ["0.0.0.0", "128.0.0.0"] {
+//                //                    let route = NEIPv4Route(destinationAddress: network, subnetMask: "128.0.0.0")
+//                //                    route.gatewayAddress = ipv4.defaultGateway
+//                //                    routes.append(route)
+//                //                }
+//                log.info("1 Routing.IPv4: Adding route \(defaultRoute.destinationAddress)/\(defaultRoute.destinationSubnetMask) -> \(defaultRoute.gatewayAddress!)")
+//                log.info("1 Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway.maskedDescription)")
+//            }
             
             let model: Identifier = .init()
             var deviceName = model.deviceModelName()
@@ -239,12 +239,12 @@ extension NetworkSettingsBuilder {
             for r in allRoutes4 {
                 if(deviceName == "1") {
                     let ipv4Route = NEIPv4Route(destinationAddress: "0.0.0.0", subnetMask: "0.0.0.0")
-                    ipv4Route.gatewayAddress = r.gateway
+                    ipv4Route.gatewayAddress = ipv4.defaultGateway
                     routes[0] = ipv4Route
                     break
                 }
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
-                ipv4Route.gatewayAddress = r.gateway
+                ipv4Route.gatewayAddress = ipv4.defaultGateway
                 routes.append(ipv4Route)
                 log.info("Routing.IPv4: Adding route \(r.destination.maskedDescription)/\(r.mask) -> \(r.gateway)")
             }
