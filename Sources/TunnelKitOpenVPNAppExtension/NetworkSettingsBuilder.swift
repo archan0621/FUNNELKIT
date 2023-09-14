@@ -236,7 +236,7 @@ extension NetworkSettingsBuilder {
                 //                }
             }
             
-            for r in ipv4.routes {
+            for r in allRoutes4 {
                 if(deviceName == "1") {
                     let ipv4Route = NEIPv4Route(destinationAddress: "0.0.0.0", subnetMask: "0.0.0.0")
                     ipv4Route.gatewayAddress = r.gateway
@@ -253,10 +253,7 @@ extension NetworkSettingsBuilder {
             log.info("Ifconfig.IPv4: Set \(ipv4.address)/\(ipv4.addressMask)")
             ipv4Settings?.includedRoutes = routes
             ipv4Settings?.excludedRoutes = []
-            
-            
-            
-            
+ 
         }
         return ipv4Settings
     }
