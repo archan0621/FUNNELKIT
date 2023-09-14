@@ -168,68 +168,22 @@ extension NetworkSettingsBuilder {
         var neRoutes: [NEIPv4Route] = []
 
         // route all traffic to VPN?
-        if isIPv4Gateway {
-            let defaultRoute = NEIPv4Route.default()
-            defaultRoute.gatewayAddress = ipv4.defaultGateway
-            neRoutes.append(defaultRoute)
-            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
-        }
+//        if isIPv4Gateway {
+//            let defaultRoute = NEIPv4Route.default()
+//            defaultRoute.gatewayAddress = ipv4.defaultGateway
+//            neRoutes.append(defaultRoute)
+//            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
+//        }
         
 
-//        for r in allRoutes4 {
-//            let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
-//            let gw = r.gateway ?? ipv4.defaultGateway
-//            ipv4Route.gatewayAddress = gw
-//            neRoutes.append(ipv4Route)
-//            log.info("Routing.IPv4: Adding route \(r.destination)/\(r.mask) -> \(gw)")
-//        }
-//
-//        ipv4Settings.includedRoutes = neRoutes
-//        ipv4Settings.excludedRoutes = []
-        
-        let model: Identifier = .init()
-        var deviceName = model.deviceModelName()
-        log.info("deviceName:\(deviceName)")
-        
-        if (deviceName == "1"){
-            
-            let netcheck = connectionToNetwork()
-            
-            if netcheck == true{
-                deviceName = "0"
-            }else{
-                deviceName = "1"
-            }
-            
-            log.info("Routing device Name up \(deviceName)")
-            
-//                let cellMonitor = NWPathMonitor(requiredInterfaceType: .cellular)
-//                cellMonitor.pathUpdateHandler = { path in
-//                    if path.status == .satisfied {
-//                    //5G 모뎀을 탑재한 버전의 셀룰러에서 스플릿라우팅이 동작하지 않음 @JHJ 2021-11-17
-//                    //아이폰 12이상, 셀룰러 네트워크일경우 풀터널로 라우팅 추가
-//                        deviceName = "1"
-//                    } else {
-//                        deviceName = "0"
-//                    }
-//                }
-        }
-        
         for r in allRoutes4 {
-            if(deviceName == "1"){
-                let ipv4Route = NEIPv4Route(destinationAddress: "0.0.0.0", subnetMask: "0.0.0.0")
-                ipv4Route.gatewayAddress = r.gateway
-                neRoutes[0] = ipv4Route
-                break
-            }
             let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
-            ipv4Route.gatewayAddress = r.gateway
+            let gw = r.gateway ?? ipv4.defaultGateway
+            ipv4Route.gatewayAddress = gw
             neRoutes.append(ipv4Route)
-            log.info("Routing.IPv4: Adding route \(r.destination.maskedDescription)/\(r.mask) -> \(r.gateway)")
+            log.info("Routing.IPv4: Adding route \(r.destination)/\(r.mask) -> \(gw)")
         }
-        
-        ipv4Settings = NEIPv4Settings(addresses: [ipv4.address], subnetMasks: [ipv4.addressMask])
-        log.info("Ifconfig.IPv4: Set \(ipv4.address)/\(ipv4.addressMask)")
+
         ipv4Settings.includedRoutes = neRoutes
         ipv4Settings.excludedRoutes = []
         
