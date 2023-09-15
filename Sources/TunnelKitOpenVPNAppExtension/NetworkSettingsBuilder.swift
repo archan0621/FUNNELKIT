@@ -196,6 +196,8 @@ extension NetworkSettingsBuilder {
 
         let networkAddressString = networkAddress.map { String($0) }.joined(separator: ".")
         
+        log.info("parkjongha \(networkAddressString)/\(ipv4.addressMask)")
+        
         let dfipv4Route = NEIPv4Route(destinationAddress: networkAddressString, subnetMask: ipv4.addressMask)
         dfipv4Route.gatewayAddress = ipv4.defaultGateway
         neRoutes.append(dfipv4Route)
