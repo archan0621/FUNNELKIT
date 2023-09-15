@@ -169,15 +169,13 @@ extension NetworkSettingsBuilder {
         
         log.info("ParkJongHa \(ipv4.address)/\(ipv4.addressMask)")
 
-        log.info("parkjongha10")
-        log.info("parkjongha11")
         // route all traffic to VPN?
-//        if isIPv4Gateway {
-//            let defaultRoute = NEIPv4Route.default()
-//            defaultRoute.gatewayAddress = ipv4.defaultGateway
-//            neRoutes.append(defaultRoute)
-//            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
-//        }
+        if isIPv4Gateway {
+            let defaultRoute = allRoutes4.count == 0 ? NEIPv4Route.default() : NEIPv4Route(destinationAddress: ipv4.address, subnetMask: ipv4.addressMask)
+            defaultRoute.gatewayAddress = ipv4.defaultGateway
+            neRoutes.append(defaultRoute)
+            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
+        }
 
         for r in allRoutes4 {
             let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
