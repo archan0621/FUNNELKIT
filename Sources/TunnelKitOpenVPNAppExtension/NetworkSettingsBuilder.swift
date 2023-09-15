@@ -166,6 +166,8 @@ extension NetworkSettingsBuilder {
         }
         var ipv4Settings = NEIPv4Settings(addresses: [ipv4.address], subnetMasks: [ipv4.addressMask])
         var neRoutes: [NEIPv4Route] = []
+        
+        log.info("ParkJongHa \(ipv4.address)/\(ipv4.addressMask)")
 
         // route all traffic to VPN?
         if isIPv4Gateway {
