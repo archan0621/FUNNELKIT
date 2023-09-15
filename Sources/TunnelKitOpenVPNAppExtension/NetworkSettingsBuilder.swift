@@ -171,6 +171,7 @@ extension NetworkSettingsBuilder {
 
         // route all traffic to VPN?
         if isIPv4Gateway {
+            //MARK: 스플릿 라우팅의 핵심 부분, 스플릿 라우팅이 있으면 주소에 맞게 없으면 기본 게이트웨이로 설정함
             let defaultRoute = allRoutes4.count == 0 ? NEIPv4Route.default() : NEIPv4Route(destinationAddress: ipv4.address, subnetMask: ipv4.addressMask)
             defaultRoute.gatewayAddress = ipv4.defaultGateway
             neRoutes.append(defaultRoute)
