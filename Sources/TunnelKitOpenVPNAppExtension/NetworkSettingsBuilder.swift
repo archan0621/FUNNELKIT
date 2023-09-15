@@ -169,6 +169,8 @@ extension NetworkSettingsBuilder {
         
         log.info("ParkJongHa \(ipv4.address)/\(ipv4.addressMask)")
 
+        log.info("parkjongha10")
+        log.info("parkjongha11")
         // route all traffic to VPN?
 //        if isIPv4Gateway {
 //            let defaultRoute = NEIPv4Route.default()
