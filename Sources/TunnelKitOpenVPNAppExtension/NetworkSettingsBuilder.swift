@@ -170,13 +170,35 @@ extension NetworkSettingsBuilder {
         log.info("ParkJongHa \(ipv4.address)/\(ipv4.addressMask)")
 
         // route all traffic to VPN?
-        if isIPv4Gateway {
-            let defaultRoute = NEIPv4Route.default()
-            defaultRoute.gatewayAddress = ipv4.defaultGateway
-            neRoutes.append(defaultRoute)
-            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
-        }
+//        if isIPv4Gateway {
+//            let defaultRoute = NEIPv4Route.default()
+//            defaultRoute.gatewayAddress = ipv4.defaultGateway
+//            neRoutes.append(defaultRoute)
+//            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
+//        }
         
+        let ipAddressComponents = ipv4.address.split(separator: ".").map { UInt8($0)! }
+        let maskComponents = ipv4.addressMask.split(separator: ".").map { UInt8($0)! }
+
+        let ipAddressBits = ipAddressComponents.map { String(format: "%08b", $0) }.joined()
+        let maskBits = maskComponents.map { String(format: "%08b", $0) }.joined()
+
+        // 호스트 부분의 길이 계산
+        let hostBitsCount = maskBits.replacingOccurrences(of: "0", with: "").count
+
+        // 네트워크 주소 계산
+        let networkBits = String(ipAddressBits.prefix(32 - hostBitsCount))
+        let networkAddress = (0..<4).map { start in
+            let startIndex = networkBits.index(networkBits.startIndex, offsetBy: start * 8)
+            let endIndex = networkBits.index(networkBits.startIndex, offsetBy: (start + 1) * 8)
+            return UInt8(networkBits[startIndex..<endIndex], radix: 2)!
+        }
+
+        let networkAddressString = networkAddress.map { String($0) }.joined(separator: ".")
+        
+        let dfipv4Route = NEIPv4Route(destinationAddress: networkAddressString, subnetMask: ipv4.addressMask)
+        dfipv4Route.gatewayAddress = ipv4.defaultGateway
+        neRoutes.append(dfipv4Route)
 
         for r in allRoutes4 {
             let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
