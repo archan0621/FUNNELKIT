@@ -178,35 +178,6 @@ extension NetworkSettingsBuilder {
 //            neRoutes.append(defaultRoute)
 //            log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway)")
 //        }
-        log.info("parkjongha1")
-        let ipAddressComponents = ipv4.address.split(separator: ".").map { UInt8($0)! }
-        log.info("parkjongha2")
-        let maskComponents = ipv4.addressMask.split(separator: ".").map { UInt8($0)! }
-        log.info("parkjongha3")
-        let ipAddressBits = ipAddressComponents.map { String(format: "%08b", $0) }.joined()
-        log.info("parkjongha4")
-        let maskBits = maskComponents.map { String(format: "%08b", $0) }.joined()
-        log.info("parkjongha5")
-        // 호스트 부분의 길이 계산
-        let hostBitsCount = maskBits.replacingOccurrences(of: "0", with: "").count
-        log.info("parkjongha6")
-        // 네트워크 주소 계산
-        let networkBits = String(ipAddressBits.prefix(32 - hostBitsCount))
-        log.info("parkjongha7")
-        let networkAddress = (0..<4).map { start in
-            let startIndex = networkBits.index(networkBits.startIndex, offsetBy: start * 8)
-            let endIndex = networkBits.index(networkBits.startIndex, offsetBy: (start + 1) * 8)
-            return UInt8(networkBits[startIndex..<endIndex], radix: 2)!
-        }
-        log.info("parkjongha8")
-
-        let networkAddressString = networkAddress.map { String($0) }.joined(separator: ".")
-        
-        log.info("parkjongha \(networkAddressString)/\(ipv4.addressMask)")
-        
-        let dfipv4Route = NEIPv4Route(destinationAddress: networkAddressString, subnetMask: ipv4.addressMask)
-        dfipv4Route.gatewayAddress = ipv4.defaultGateway
-        neRoutes.append(dfipv4Route)
 
         for r in allRoutes4 {
             let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
